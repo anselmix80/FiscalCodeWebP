@@ -1,0 +1,8 @@
+Django
+djangorestframework
+django-cors-headers
+gunicorn
+pyfiglet
+python-dotenv
+whitenoise
+requests

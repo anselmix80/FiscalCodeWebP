@@ -1,0 +1,59 @@
+version: '3.7'
+
+services:
+  backend:
+    container_name: backend
+    build: ./backend
+    ports:
+      - "8000:8000"
+    volumes:
+      - static_volume:/backend/static
+    networks:
+      net:
+        ipv4_address: 10.5.0.5
+
+  frontend:
+    container_name: frontend
+    build: ./frontend
+    ports:
+      - "8080:80"
+    networks:
+      net:
+        ipv4_address: 10.5.0.6
+    depends_on:
+      - backend
+    #healthcheck:
+      #test: ["CMD", "curl", "http://backend:8000/api/commons/"]
+      #interval: 200s
+      #timeout: 200s
+      #retries: 5
+
+  web:
+    container_name: web
+    build: ./web
+    restart: always
+    ports:
+      - "80"
+    networks:
+      net:
+        ipv4_address: 10.5.0.7
+    volumes:
+      - static_volume:/backend/static
+    depends_on:
+      - backend  
+    healthcheck:
+          test: ["CMD", "curl", "-f", "http://backend:8000/api/fc"]
+          interval: 200s
+          timeout: 200s
+          retries: 5
+
+volumes:
+  static_volume:
+
+networks:
+  net:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 10.5.0.0/16
+          gateway: 10.5.0.1

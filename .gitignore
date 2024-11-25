@@ -1,0 +1,14 @@
+**/*~
+**/*.bak
+**/*.sw[abcdefghijklmnop]
+**/__pycache__/
+**/venv/
+**/output.csv
+**/commons.csv
+**/*.sqlite3
+migrations/
+node_modules/
+staticfiles/
+static/
+**/*.log
+**/*.log.*
