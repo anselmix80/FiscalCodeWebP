@@ -7,6 +7,7 @@
 **/commons.csv
 **/*.sqlite3
 migrations/
+.vscode/
 node_modules/
 staticfiles/
 static/
